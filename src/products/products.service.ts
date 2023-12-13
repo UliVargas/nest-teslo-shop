@@ -16,15 +16,11 @@ export class ProductsService {
   private readonly logger = new Logger('ProductsService');
 
   constructor(
-
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-
     @InjectRepository(ProductImage)
     private readonly productImageRepository: Repository<ProductImage>,
-
     private readonly dataSource: DataSource,
-
   ) {}
 
 
@@ -66,7 +62,7 @@ export class ProductsService {
 
     return products.map( ( product ) => ({
       ...product,
-      images: product.images.map( img => img.url )
+      images: product.images.map( img => `${process.env.HOST_API}/${img.url}` )
     }))
   }
 
